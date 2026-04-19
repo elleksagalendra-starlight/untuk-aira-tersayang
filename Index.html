@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Romantic Book Card</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+body{
+    margin:0;
+    overflow:hidden;
+    font-family:'Quicksand',sans-serif;
+    background: linear-gradient(135deg,#eaf6ff,#ffffff,#f0f8ff);
+}
+
+/* ===== LOCK ===== */
+#lockScreen{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg,#dff3ff,#ffffff);
+}
+
+input{
+    padding:12px;
+    border-radius:12px;
+    border:1px solid #9ad0ff;
+    text-align:center;
+    margin-top:10px;
+}
+
+button{
+    margin-top:10px;
+    padding:10px 20px;
+    border:none;
+    border-radius:12px;
+    background:#7fc7ff;
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+/* ===== CARD ===== */
+.card{
+    display:none;
+    width:90%;
+    max-width:420px;
+    height:600px;
+    margin:auto;
+    margin-top:40px;
+    background:white;
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.1);
+    position:relative;
+    overflow:hidden;
+}
+
+/* glow title */
+h2{
+    color:#5aa9e6;
+    text-align:center;
+    animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+    from{text-shadow:0 0 5px #9ad0ff;}
+    to{text-shadow:0 0 20px #7fc7ff;}
+}
+
+/* ===== SLIDES ===== */
+.slide{
+    display:none;
+    padding:40px;
+    text-align:center;
+    animation:fade 0.8s ease;
+}
+
+.slide.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+p{
+    color:#4b5563;
+    line-height:1.8;
+    min-height:120px;
+}
+
+/* typing */
+.typing{
+    overflow:hidden;
+    border-right:2px solid #7fc7ff;
+    white-space:nowrap;
+    animation:typing 3s steps(40,end), blink .7s infinite;
+}
+
+@keyframes typing{
+    from{width:0}
+    to{width:100%}
+}
+
+@keyframes blink{
+    50%{border-color:transparent}
+}
+
+/* nav */
+.nav{
+    position:absolute;
+    bottom:15px;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+/* ===== LILY FALL ===== */
+.petal{
+    position:absolute;
+    top:-10px;
+    width:16px;
+    height:16px;
+    background: radial-gradient(circle,#ffffff,#7fc7ff);
+    border-radius:50%;
+    opacity:0.7;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(700px) rotate(360deg);
+        opacity:0;
+    }
+}
+
+/* ===== BOOK CLOSE ===== */
+.book-close{
+    animation: closeBook 2s ease forwards;
+}
+
+@keyframes closeBook{
+    0%{
+        transform:scale(1) rotateY(0deg);
+        opacity:1;
+    }
+    100%{
+        transform:scale(0.85) rotateY(90deg);
+        opacity:0;
+    }
+}
+
+/* FINAL SCREEN */
+.final-screen{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: radial-gradient(circle,#eaf6ff,#ffffff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    opacity:0;
+    pointer-events:none;
+    transition:1.5s;
+}
+
+.final-screen.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.final-text{
+    max-width:300px;
+    color:#5aa9e6;
+    font-size:16px;
+    animation:fadeUp 2s ease;
+}
+
+@keyframes fadeUp{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* audio hidden */
+audio{display:none;}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio autoplay loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b7d2c3d2.mp3?filename=romantic-ambient-piano-112191.mp3">
+</audio>
+
+<!-- LOCK -->
+<div id="lockScreen">
+    <h2>🔐 kode cinta</h2>
+    <p>pin nya "sayangku" hehe 💙</p>
+    <input type="password" id="code" placeholder="••••••">
+    <button onclick="unlock()">Buka</button>
+</div>
+
+<!-- CARD -->
+<div class="card" id="card">
+
+<div class="slide active">
+    <h2>remember 💙</h2>
+    <p class="typing">you are my soulmate.</p>
+</div>
+
+<div class="slide">
+    <h2>dear my darling</h2>
+    <p>sayang, aku harap kamu selalu bahagia dan bisa terus nyaman saat kita menjalin hubungan, bagiku kau sangat istimewa dan spesial, terimakasih sudah memberikan hidupku warna warna yang cerah dikala sebelum ada dirimu duniaku terlalu flat dan hitam putih, i love u so much.</p>
+</div>
+
+<div class="slide">
+    <h2>jikalau kau lelah</h2>
+    <p>aku harap kamu tau, dibelakang mu aku selalu menjadi supporter terbaik, jika kamu menjalani masa masa yang berat, yakin lah bahwa di deoan mata ada sebuah kesuksedan yang akan datang, kalo kamu gagal, percaya lah kegagalan afalah bagian dari proses, aku harap di setiap kegiatan yang kamu lakukan, kamu bisa terus ingat sama aku.</p>
+</div>
+
+<div class="slide">
+    <h2>bagian akhir🌙</h2>
+    <p>walaupun judul slide nya bagian akhir, tapi aku harap cerita kita tidak ada akhir nya, hanya dimulai dengan pembuka namun tanpa penutup, sayang, sekali lagii termikasih telah hadir di hidup aku, kamu satu satu nya orang yang aku cintai sepenuhnya.</p>
+</div>
+
+<div class="nav">
+    <button onclick="prev()">⬅</button>
+    <button onclick="next()">➡</button>
+</div>
+
+<div class="final-screen" id="finalScreen">
+    <h2>📖</h2>
+    <div class="final-text">
+        Dan cerita ini sampai di halaman terakhir...  
+        <br><br>
+        Terima kasih sudah menjadi bagian indah dalam cerita ini 💙  
+        Kalau boleh jujur… aku ingin kamu tetap tinggal di setiap bab hidupku.
+    </div>
+</div>
+
+</div>
+
+<script>
+
+let current = 0;
+const slides = document.querySelectorAll(".slide");
+
+function show(i){
+    slides.forEach(s=>s.classList.remove("active"));
+    slides[i].classList.add("active");
+}
+
+function next(){
+    if(current === slides.length - 1){
+        closeBook();
+        return;
+    }
+    current++;
+    show(current);
+}
+
+function prev(){
+    current = (current - 1 + slides.length) % slides.length;
+    show(current);
+}
+
+/* LOCK */
+function unlock(){
+    let code = document.getElementById("code").value;
+    if(code.toLowerCase() === "love" || code === "sayangku"){
+        document.getElementById("lockScreen").style.display="none";
+        document.getElementById("card").style.display="block";
+        startPetals();
+    } else {
+        alert("Kode salah 💔");
+    }
+}
+
+/* LILY FALL */
+function startPetals(){
+    setInterval(()=>{
+        let p = document.createElement("div");
+        p.classList.add("petal");
+        p.style.left = Math.random()*100+"vw";
+        p.style.animationDuration = (3+Math.random()*5)+"s";
+        document.body.appendChild(p);
+        setTimeout(()=>p.remove(),8000);
+    },200);
+}
+
+/* BOOK CLOSE */
+function closeBook(){
+    document.getElementById("card").classList.add("book-close");
+
+    setTimeout(()=>{
+        document.getElementById("card").style.display="none";
+        document.getElementById("finalScreen").classList.add("show");
+    },1800);
+}
+
+</script>
+
+</body>
+</html>
